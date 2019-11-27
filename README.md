@@ -26,7 +26,7 @@ It is an application that connects beauty service providers with their customers
   
 <strong>Web</strong>: redux, redux-persist, redux-saga, react-router-dom, axios, styled-components, babel-plugin-root-import, customize-cra, prop-types, @rocketseat/unform, date-fns-tz, history, immer, polished, react-icons, react-perfect-scrollbar, react-redux, react-toastify, reactotron-react-js, reactotron-redux, reactotron-redux-saga and react-app-rewired 
 
-<strong>Backend</strong> - jsonwebtoken, sequelize, express, express-async-errors, express-handlebars,  mongoose, nodemon, multer, @sentry/node, bcryptjs, bee-queue, nodemailer, pg, pg-hstore, youch, and cors
+<strong>Backend</strong> - jsonwebtoken, sequelize, express, express-async-errors, express-handlebars,  mongoose, nodemon, multer, @sentry/node, bcryptjs, bee-queue, nodemailer, nodemailer-express-handlebars, pg, pg-hstore, youch, dotenv, and cors
 
 <strong>Both</strong> - eslint, date-fns, yup and prettier
 
