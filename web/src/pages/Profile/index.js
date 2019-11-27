@@ -17,7 +17,7 @@ export default function Profile() {
     dispatch(updateProfileRequest(data));
   }
 
-  function hadnleSignOut() {
+  function handleSignOut() {
     dispatch(signOut());
   }
 
@@ -45,7 +45,7 @@ export default function Profile() {
         <button type="submit">Atualizar perfil</button>
       </Form>
 
-      <button type="button" onClick={hadnleSignOut}>
+      <button type="button" onClick={handleSignOut}>
         Sair do GoBarber
       </button>
     </Container>
