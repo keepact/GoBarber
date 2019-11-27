@@ -13,13 +13,13 @@ This project is part of Rocketseat's Bootcamp and is developed throughout the cl
 
 It is an application that connects beauty service providers with their customers. There are 4 screens:
 
-<strong>1</strong> Login page
+<strong>1</strong>: Login page
 
-<strong>2</strong> Dashboard with appointments
+<strong>2</strong>: Dashboard with appointments
 
-<strong>3</strong> Profile for update data
+<strong>3</strong>: Profile for update data
 
-<strong>4</strong> Logout
+<strong>4</strong>: Logout
 
 
 ## Tools used:
@@ -42,7 +42,7 @@ It is an application that connects beauty service providers with their customers
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn install`
 
 Runs the app in the development mode.<br />
 
