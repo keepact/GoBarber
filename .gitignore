@@ -15,6 +15,11 @@
 /web/.env
 /web/.DS_Store
 
+# Web
+/mobile/node_modules/
+/mobile/.env
+/mobile/.DS_Store
+
 # testing
 /coverage
 
