@@ -19,7 +19,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  icon: null,
+  icon: '',
   style: {},
 };
 
