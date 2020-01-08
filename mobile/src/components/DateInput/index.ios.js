@@ -41,7 +41,7 @@ function DateInput({ date, onChange }) {
 }
 
 DateInput.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
