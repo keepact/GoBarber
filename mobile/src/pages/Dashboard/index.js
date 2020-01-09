@@ -17,7 +17,19 @@ function Dashboard({ isFocused }) {
   async function loadAppointments() {
     const response = await api.get('appointments');
 
-    setAppointments(response.data);
+    const data = response.data.map(appointment => ({
+      ...appointment,
+      provider: {
+        ...appointment.provider,
+        avatar: {
+          url: appointment.provider.avatar
+            ? `${api.defaults.baseURL}/files/${appointment.provider.avatar.path}`
+            : `https://api.adorable.io/avatars/50/${appointment.provider.name}`,
+        },
+      },
+    }));
+
+    setAppointments(data);
   }
 
   useEffect(() => {

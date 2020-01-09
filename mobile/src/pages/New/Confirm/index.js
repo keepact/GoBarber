@@ -36,7 +36,7 @@ function Confirm({ navigation }) {
         <Avatar
           source={{
             uri: provider.avatar
-              ? provider.avatar.url
+              ? provider.avatar.url.replace('localhost', '192.168.0.17')
               : `https://api.adorable.io/avatar/50/${provider.name}.png`,
           }}
         />
