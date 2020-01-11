@@ -1,20 +1,19 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { parseISO, formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
+
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import api from '~/services/api';
-
 import Background from '~/components/Background';
 
+import { createAppointmentsRequest } from '~/store/modules/appointment';
 import { Container, Avatar, Name, Time, SubmitButton } from './styles';
 
-function Confirm({ navigation }) {
-  const provider = navigation.getParam('provider');
-  const time = navigation.getParam('time');
+function Confirm() {
+  const dispatch = useDispatch();
+  const { time, provider } = useSelector(state => state.provider);
 
   const dateFormatted = useMemo(
     () => formatRelative(parseISO(time), new Date(), { locale: pt }),
@@ -22,12 +21,12 @@ function Confirm({ navigation }) {
   );
 
   async function handleAddAppointment() {
-    await api.post('appointments', {
-      provider_id: provider.id,
-      date: time,
-    });
+    const data = {
+      provider,
+      time,
+    };
 
-    navigation.navigate('Dashboard');
+    dispatch(createAppointmentsRequest(data));
   }
 
   return (
@@ -62,12 +61,5 @@ Confirm.navigationOptions = ({ navigation }) => ({
     </TouchableOpacity>
   ),
 });
-
-Confirm.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-    getParam: PropTypes.func,
-  }).isRequired,
-};
 
 export default Confirm;

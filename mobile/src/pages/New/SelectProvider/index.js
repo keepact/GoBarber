@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import api from '~/services/api';
-
 import Background from '~/components/Background';
+
+import {
+  listProvidersRequest,
+  redirectSelectDateTime,
+} from '~/store/modules/provider';
 
 import { Container, ProvidersList, Provider, Avatar, Name } from './styles';
 
-export default function SelectProvider({ navigation }) {
-  const [providers, setProviders] = useState([]);
-
-  async function loadProviders() {
-    const response = await api.get('providers');
-
-    setProviders(response.data);
-  }
+export default function SelectProvider() {
+  const dispatch = useDispatch();
+  const { providers } = useSelector(state => state.provider);
 
   useEffect(() => {
-    loadProviders();
-  }, []);
+    dispatch(listProvidersRequest());
+  }, [dispatch]);
+
+  function handleNavigate(provider) {
+    dispatch(redirectSelectDateTime(provider));
+  }
 
   return (
     <Background>
@@ -29,10 +32,7 @@ export default function SelectProvider({ navigation }) {
           data={providers}
           keyExtractor={provider => String(provider.id)}
           renderItem={({ item: provider }) => (
-            <Provider
-              onPress={() =>
-                navigation.navigate('SelectDateTime', { provider })
-              }>
+            <Provider onPress={() => handleNavigate(provider)}>
               <Avatar
                 source={{
                   uri: provider.avatar
@@ -60,9 +60,3 @@ SelectProvider.navigationOptions = ({ navigation }) => ({
     </TouchableOpacity>
   ),
 });
-
-SelectProvider.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-  }).isRequired,
-};
