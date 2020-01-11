@@ -1,14 +1,9 @@
 import { takeLatest, all, call, put } from 'redux-saga/effects';
 
 import api from '~/services/api';
+import NavigationService from '~/services/navigation';
 
-import {
-  Types,
-  listAppointmentsSuccess,
-  listAppointmentsFailure,
-  cancelAppointmentsSuccess,
-  cancelAppointmentsFailure,
-} from './index';
+import * as Appointments from './index';
 
 export function* listAppointments() {
   try {
@@ -26,9 +21,25 @@ export function* listAppointments() {
       },
     }));
 
-    yield put(listAppointmentsSuccess(data));
+    yield put(Appointments.listAppointmentsSuccess(data));
   } catch (err) {
-    yield put(listAppointmentsFailure());
+    yield put(Appointments.listAppointmentsFailure());
+  }
+}
+
+export function* createAppointment({ payload }) {
+  try {
+    const { data } = payload;
+
+    const response = yield call(api.post, 'appointments', {
+      provider_id: data.provider.id,
+      date: data.time,
+    });
+
+    yield put(Appointments.createAppointmentsSuccess(response.data));
+    NavigationService.navigate('Dashboard');
+  } catch (err) {
+    yield put(Appointments.createAppointmentsFailure());
   }
 }
 
@@ -38,17 +49,15 @@ export function* cancelAppointments({ payload }) {
 
     const response = yield call(api.delete, `appointments/${id}`);
 
-    yield put(cancelAppointmentsSuccess(response.data));
-
-    if (response.status === 200) {
-      yield put(listAppointments());
-    }
+    yield put(Appointments.cancelAppointmentsSuccess(response.data));
+    yield put(Appointments.listAppointmentsRequest());
   } catch (err) {
-    yield put(cancelAppointmentsFailure());
+    yield put(Appointments.cancelAppointmentsFailure());
   }
 }
 
 export default all([
-  takeLatest(Types.REQUEST, listAppointments),
-  takeLatest(Types.DELETE_REQUEST, cancelAppointments),
+  takeLatest(Appointments.Types.REQUEST, listAppointments),
+  takeLatest(Appointments.Types.CREATE_REQUEST, createAppointment),
+  takeLatest(Appointments.Types.DELETE_REQUEST, cancelAppointments),
 ]);

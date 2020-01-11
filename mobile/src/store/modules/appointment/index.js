@@ -6,6 +6,9 @@ export const Types = {
   REQUEST: '@appointment/LIST_REQUEST',
   SUCCESS: '@appointment/LIST_SUCCESS',
   FAIL: '@appointment/LIST_FAIL',
+  CREATE_REQUEST: '@appointment/CREATE_REQUEST',
+  CREATE_SUCCESS: '@appointment/CREATE_SUCCESS',
+  CREATE_FAIL: '@appointment/CREATE_FAIL',
   DELETE_REQUEST: '@appointment/DELETE_REQUEST',
   DELETE_SUCCESS: '@appointment/DELETE_SUCCESS',
   DELETE_FAIL: '@appointment/DELETE_FAIL',
@@ -34,6 +37,18 @@ export default function appointment(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case Types.CREATE_REQUEST: {
+        draft.loading = true;
+        break;
+      }
+      case Types.CREATE_SUCCESS: {
+        draft.loading = false;
+        break;
+      }
+      case Types.CREATE_FAIL: {
+        draft.loading = false;
+        break;
+      }
       case Types.DELETE_REQUEST: {
         draft.loading = true;
         break;
@@ -53,10 +68,9 @@ export default function appointment(state = INITIAL_STATE, action) {
 
 // Action Creators
 
-export function listAppointmentsRequest(page, newList) {
+export function listAppointmentsRequest() {
   return {
     type: Types.REQUEST,
-    payload: { page, newList },
   };
 }
 
@@ -89,5 +103,25 @@ export function cancelAppointmentsSuccess() {
 export function cancelAppointmentsFailure() {
   return {
     type: Types.DELETE_FAIL,
+  };
+}
+
+export function createAppointmentsRequest(data) {
+  return {
+    type: Types.CREATE_REQUEST,
+    payload: { data },
+  };
+}
+
+export function createAppointmentsSuccess(data) {
+  return {
+    type: Types.CREATE_SUCCESS,
+    payload: { data },
+  };
+}
+
+export function createAppointmentsFailure() {
+  return {
+    type: Types.CREATE_FAIL,
   };
 }

@@ -22,7 +22,7 @@ function Dashboard({ isFocused }) {
     if (isFocused) {
       dispatch(listAppointmentsRequest());
     }
-  }, [dispatch, isFocused, appointments]);
+  }, [dispatch, isFocused]);
 
   function handleCancel(id) {
     dispatch(cancelAppointmentsRequest(id));
@@ -50,10 +50,8 @@ function tabBarIcon({ tintColor }) {
 }
 
 Dashboard.navigationOptions = {
-  tabBar: {
-    label: 'Agendamentos',
-    icon: tabBarIcon,
-  },
+  tabBarLabel: 'Agendamentos',
+  tabBarIcon,
 };
 
 tabBarIcon.propTypes = {
