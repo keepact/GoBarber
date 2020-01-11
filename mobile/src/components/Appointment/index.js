@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+
 import { parseISO, formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { TouchableOpacity } from 'react-native';
@@ -6,7 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Container, Left, Avatar, Info, Name, Time } from './styles';
 
-export default function Appointment({ data, onCancel }) {
+function Appointment({ data, onCancel }) {
   const dateParsed = useMemo(() => {
     return formatRelative(parseISO(data.date), new Date(), {
       locale: pt,
@@ -39,3 +41,16 @@ export default function Appointment({ data, onCancel }) {
     </Container>
   );
 }
+
+Appointment.propTypes = {
+  onCancel: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    past: PropTypes.bool.isRequired,
+    provider: PropTypes.object.isRequired,
+    cancelable: PropTypes.bool.isRequired,
+    canceled_at: PropTypes.instanceOf(Date),
+  }).isRequired,
+};
+
+export default Appointment;

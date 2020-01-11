@@ -16,7 +16,6 @@ import { Container, Title, HourList, Hour } from './styles';
 
 function SelectDateTime() {
   const [date, setDate] = useState(new Date());
-
   const dispatch = useDispatch();
 
   const { hours, provider } = useSelector(state => state.provider);

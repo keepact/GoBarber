@@ -20,7 +20,7 @@ function Confirm() {
     [time]
   );
 
-  async function handleAddAppointment() {
+  function handleAddAppointment() {
     const data = {
       provider,
       time,
