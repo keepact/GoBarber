@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 
 import api from '~/services/api';
 
-import { updateProfileSuccess, updateProfileFailure } from './actions';
+import { Types, updateProfileSuccess, updateProfileFailure } from './index';
 
 export function* updateProfile({ payload }) {
   try {
@@ -29,4 +29,4 @@ export function* updateProfile({ payload }) {
   }
 }
 
-export default all([takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile)]);
+export default all([takeLatest(Types.UPDATE_PROFILE_SUCCESS, updateProfile)]);

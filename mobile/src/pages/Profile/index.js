@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Background from '~/components/Background';
-import { signOut } from '~/store/modules/auth/actions';
-import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth';
+import { updateProfileRequest } from '~/store/modules/user';
 
 import {
   Container,
@@ -16,7 +18,7 @@ import {
   LogoutButton,
 } from './styles';
 
-export default function Profile() {
+function Profile() {
   const dispatch = useDispatch();
   const { profile } = useSelector(state => state.user);
 
@@ -126,9 +128,17 @@ export default function Profile() {
   );
 }
 
+const tabBarIcon = ({ tintColor }) => {
+  return <Icon name="person" size={20} color={tintColor} />;
+};
+
+tabBarIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
+};
+
 Profile.navigationOptions = {
   tabBarLabel: 'Meu perfil',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="person" size={20} color={tintColor} />
-  ),
+  tabBarIcon,
 };
+
+export default Profile;

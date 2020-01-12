@@ -22,7 +22,7 @@ function SelectDateTime() {
 
   useEffect(() => {
     dispatch(listAvailableRequest(provider, date));
-  }, [date, dispatch, provider]);
+  }, [dispatch, date, provider]);
 
   function handleSelectHour(time) {
     dispatch(redirectConfirm(time));

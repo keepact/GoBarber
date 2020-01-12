@@ -13,7 +13,7 @@ import {
 
 import { Container, ProvidersList, Provider, Avatar, Name } from './styles';
 
-export default function SelectProvider() {
+function SelectProvider() {
   const dispatch = useDispatch();
   const { providers } = useSelector(state => state.provider);
 
@@ -60,3 +60,5 @@ SelectProvider.navigationOptions = ({ navigation }) => ({
     </TouchableOpacity>
   ),
 });
+
+export default SelectProvider;
