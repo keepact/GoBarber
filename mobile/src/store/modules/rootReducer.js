@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import auth from './auth/reducer';
-import user from './user/reducer';
+import auth from './auth';
+import user from './user';
 import appointment from './appointment';
 import provider from './provider';
 
