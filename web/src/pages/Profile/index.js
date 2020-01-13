@@ -2,8 +2,8 @@ import React from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signOut } from '~/store/modules/auth/actions';
-import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth';
+import { updateProfileRequest } from '~/store/modules/user';
 
 import AvatarInput from './AvatarInput';
 
