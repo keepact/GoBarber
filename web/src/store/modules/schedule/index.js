@@ -3,9 +3,9 @@ import produce from 'immer';
 // Action Types
 
 export const Types = {
-  REQUEST: '@schedule/REQUEST',
-  SUCCESS: '@schedule/SUCCESS',
-  FAIL: '@schedule/FAIL',
+  REQUEST: '@schedule/SCHEDULE_REQUEST',
+  SUCCESS: '@schedule/SCHEDULE_SUCCESS',
+  FAIL: '@schedule/SCHEDULE_FAIL',
 };
 
 // Reducer
