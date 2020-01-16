@@ -3,7 +3,15 @@ import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 
-import * as profileActions from './index';
+import {
+  Types,
+  updateProfileSuccess,
+  updateProfileFailure,
+  showAvatarSuccess,
+  showAvatarFailure,
+  updateAvatarSuccess,
+  updateAvatarFailure,
+} from './index';
 
 export function* updateProfile({ payload }) {
   try {
@@ -19,10 +27,10 @@ export function* updateProfile({ payload }) {
 
     toast.success('Perfil atualizado com sucess!');
 
-    yield put(profileActions.updateProfileSuccess(response.data));
+    yield put(updateProfileSuccess(response.data));
   } catch (err) {
     toast.error('Erro ao atualizar perfil, confira seus dados!');
-    yield put(profileActions.updateProfileFailure());
+    yield put(updateProfileFailure());
   }
 }
 
@@ -33,9 +41,9 @@ export function* showAvatar({ payload }) {
       id,
       url,
     };
-    yield put(profileActions.showAvatarSuccess(avatar));
+    yield put(showAvatarSuccess(avatar));
   } catch (err) {
-    yield put(profileActions.showAvatarFailure());
+    yield put(showAvatarFailure());
   }
 }
 
@@ -55,14 +63,14 @@ export function* updateAvatar({ payload }) {
       url,
     };
 
-    yield put(profileActions.updateAvatarSuccess(newAvatar));
+    yield put(updateAvatarSuccess(newAvatar));
   } catch (err) {
-    yield put(profileActions.updateAvatarFailure());
+    yield put(updateAvatarFailure());
   }
 }
 
 export default all([
-  takeLatest(profileActions.Types.REQUEST, updateProfile),
-  takeLatest(profileActions.Types.AVATAR_REQUEST, showAvatar),
-  takeLatest(profileActions.Types.UPDATE_AVATAR_REQUEST, updateAvatar),
+  takeLatest(Types.REQUEST, updateProfile),
+  takeLatest(Types.AVATAR_REQUEST, showAvatar),
+  takeLatest(Types.UPDATE_AVATAR_REQUEST, updateAvatar),
 ]);
