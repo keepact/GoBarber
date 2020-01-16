@@ -16,7 +16,7 @@ import {
   Notification,
 } from './styles';
 
-export default function Notifications() {
+function Notifications() {
   const [visible, setVisible] = useState(false);
 
   const { notifications } = useSelector(state => state.notification);
@@ -66,3 +66,5 @@ export default function Notifications() {
     </Container>
   );
 }
+
+export default Notifications;
