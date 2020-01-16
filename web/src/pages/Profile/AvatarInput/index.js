@@ -1,14 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useField } from '@rocketseat/unform';
-import api from '~/services/api';
+
+import { showAvatarRequest, updateAvatarRequest } from '~/store/modules/user';
 
 import { Container } from './styles';
 
 export default function AvatarInput() {
   const { defaultValue, registerField } = useField('avatar');
 
-  const [file, setFile] = useState(defaultValue && defaultValue.id);
-  const [preview, setPreview] = useState(defaultValue && defaultValue.url);
+  const dispatch = useDispatch();
+  const { avatar } = useSelector(state => state.user);
 
   const ref = useRef();
 
@@ -20,20 +22,12 @@ export default function AvatarInput() {
         path: 'dataset.file',
       });
     }
+    dispatch(showAvatarRequest(defaultValue));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref.current]);
+  }, [dispatch, ref.current]);
 
   async function handleChange(e) {
-    const data = new FormData();
-
-    data.append('file', e.target.files[0]);
-
-    const response = await api.post('files', data);
-
-    const { id, url } = response.data;
-
-    setFile(id);
-    setPreview(url);
+    dispatch(updateAvatarRequest(e.target.files[0]));
   }
 
   return (
@@ -41,16 +35,18 @@ export default function AvatarInput() {
       <label htmlFor="avatar">
         <img
           src={
-            preview || 'https://api.adorable.io/avatars/50/abott@adorable.png'
+            avatar
+              ? avatar.url
+              : 'https://api.adorable.io/avatars/50/abott@adorable.png'
           }
-          alt=""
+          alt="avatar ou foto do usuário"
         />
 
         <input
           type="file"
           id="avatar"
           accept="image/*"
-          data-file={file}
+          data-file={avatar && avatar.id}
           onChange={handleChange}
           ref={ref}
         />
