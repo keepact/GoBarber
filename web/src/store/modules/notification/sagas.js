@@ -36,6 +36,7 @@ export function* markAsRead({ payload }) {
     yield call(api.put, `notifications/${id}`);
 
     const { notifications } = yield select(state => state.notification);
+
     const currentNotifications = notifications.map(notification =>
       notification._id === id ? { ...notification, read: true } : notification
     );
