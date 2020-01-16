@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { MdNotifications } from 'react-icons/md';
-import { parseISO, formatDistance } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { useSelector, useDispatch } from 'react-redux';
 
-import api from '~/services/api';
+import { MdNotifications } from 'react-icons/md';
+
+import {
+  showNotificationRequest,
+  markAsReadRequest,
+} from '~/store/modules/notification';
 
 import {
   Container,
@@ -15,7 +18,9 @@ import {
 
 export default function Notifications() {
   const [visible, setVisible] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+
+  const { notifications } = useSelector(state => state.notification);
+  const dispatch = useDispatch();
 
   const hasUnread = useMemo(
     () => !!notifications.find(notification => notification.read === false),
@@ -23,36 +28,15 @@ export default function Notifications() {
   );
 
   useEffect(() => {
-    async function loadNotifications() {
-      const response = await api.get('notifications');
-
-      const data = response.data.map(notification => ({
-        ...notification,
-        timeDistance: formatDistance(
-          parseISO(notification.createdAt),
-          new Date(),
-          { addSuffix: TextTrackCue, locale: pt }
-        ),
-      }));
-
-      setNotifications(data);
-    }
-
-    loadNotifications();
-  }, []);
+    dispatch(showNotificationRequest());
+  }, [dispatch]);
 
   function handleToggleVisible() {
     setVisible(!visible);
   }
 
-  async function handleMarkAsRead(id) {
-    await api.put(`notifications/${id}`);
-
-    setNotifications(
-      notifications.map(notification =>
-        notification._id === id ? { ...notification, read: true } : notification
-      )
-    );
+  function handleMarkAsRead(id) {
+    dispatch(markAsReadRequest(id));
   }
 
   return (

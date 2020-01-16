@@ -6,7 +6,7 @@ import { showAvatarRequest, updateAvatarRequest } from '~/store/modules/user';
 
 import { Container } from './styles';
 
-export default function AvatarInput() {
+function AvatarInput() {
   const { defaultValue, registerField } = useField('avatar');
 
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function AvatarInput() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, ref.current]);
 
-  async function handleChange(e) {
+  function handleChange(e) {
     dispatch(updateAvatarRequest(e.target.files[0]));
   }
 
@@ -54,3 +54,5 @@ export default function AvatarInput() {
     </Container>
   );
 }
+
+export default AvatarInput;
