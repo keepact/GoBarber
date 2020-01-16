@@ -11,7 +11,7 @@ import { Container } from './styles';
 
 function Profile() {
   const dispatch = useDispatch();
-  const profile = useSelector(state => state.user.profile);
+  const { profile } = useSelector(state => state.user);
 
   function handleSubmit(data) {
     dispatch(updateProfileRequest(data));
@@ -32,16 +32,16 @@ function Profile() {
         <hr />
 
         <Input
-          type="password"
           name="oldPassword"
-          placeholder="Sua senha atual"
-        />
-        <Input
           type="password"
-          name="confirmPassword"
-          placeholder="Confirmação da senha"
+          placeholder="Sua senha antiga"
         />
-
+        <Input name="password" type="password" placeholder="Nova senha" />
+        <Input
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirme sua nova senha"
+        />
         <button type="submit">Atualizar perfil</button>
       </Form>
 
